@@ -2213,9 +2213,10 @@ const RespaldoPanel = () => {
 };
 
 
-const LicenciasPanel = ({subs}) => {
+const LicenciasPanel = ({subs, div, personal}) => {   // div: modo división (solo su personal); sin div: modo DSED
   const [items,setItems]=useState(null);
-  const [divId,setDivId]=useState(DIVISIONS[0].id);
+  const [divId,setDivId]=useState(div?div.id:DIVISIONS[0].id);
+  const por=div?div.abbr:'DSED';
   const [pid,setPid]=useState('');
   const [desde,setDesde]=useState('');
   const [hasta,setHasta]=useState('');
@@ -2223,8 +2224,16 @@ const LicenciasPanel = ({subs}) => {
   const [nota,setNota]=useState('');
   const [saving,setSaving]=useState(false);
   useEffect(()=>db.collection('config').doc('licencias').onSnapshot(s=>setItems(s.exists?(s.data().items||[]):[]),e=>{setItems([]);toast('bad','No se pudo leer',e.message);}),[]);
-  const roster=sortP(subs[divId]?.personal||[]);
-  const save=async(arr)=>{ setSaving(true); try{ await db.collection('config').doc('licencias').set({items:arr},{merge:true}); }catch(e){ toast('bad','Error al guardar',e.message); } setSaving(false); };
+  const roster=sortP(div?(personal||[]):(subs[divId]?.personal||[]));
+  // Transacción: varias divisiones pueden cargar a la vez sin pisarse
+  const save=async(fn)=>{
+    setSaving(true);
+    try{
+      const ref=db.collection('config').doc('licencias');
+      await db.runTransaction(async tx=>{ const sn=await tx.get(ref); const cur=sn.exists?(sn.data().items||[]):[]; tx.set(ref,{items:fn(cur)},{merge:true}); });
+    }catch(e){ toast('bad','Error al guardar',e.message); setSaving(false); return false; }
+    setSaving(false); return true;
+  };
   const add=async()=>{
     const p=roster.find(x=>x.id===pid);
     if(!p){toast('bad','Falta el efectivo','Elegí a quién corresponde.');return;}
@@ -2233,29 +2242,29 @@ const LicenciasPanel = ({subs}) => {
     const est=corregirEstado(estado.trim().toUpperCase()).val.toString().toUpperCase();
     if(!est){toast('bad','Falta el estado','Ej: L/A - NO');return;}
     const it={id:uid(),div:divId,k:_pkey(p),who:`${p.apellido} ${p.nombre}`,desde,hasta,estado:est,nota:nota.trim()};
-    await save([...(items||[]),it]);
-    audNow({weekId:'',weekLabel:'',div:DIVISIONS.find(d=>d.id===divId)?.abbr,by:'DSED'},{k:'nom',x:`Novedad fija: ${it.who} · ${est} · ${_fmtD(desde)} al ${_fmtD(hasta)}`});
+    if(!(await save(cur=>[...cur,it]))) return;
+    audNow({weekId:'',weekLabel:'',div:DIVISIONS.find(d=>d.id===divId)?.abbr,by:por},{k:'nom',x:`Novedad fija: ${it.who} · ${est} · ${_fmtD(desde)} al ${_fmtD(hasta)}`});
     toast('ok','Novedad guardada',`${it.who} — ${est}`); setPid(''); setNota('');
   };
   const del=async(it)=>{
     if(!window.confirm(`¿Quitar "${it.estado}" de ${it.who} (${_fmtD(it.desde)} al ${_fmtD(it.hasta)})?`)) return;
-    await save((items||[]).filter(x=>x.id!==it.id));
-    audNow({weekId:'',weekLabel:'',div:DIVISIONS.find(d=>d.id===it.div)?.abbr,by:'DSED'},{k:'nom',x:`Quitó novedad fija: ${it.who} · ${it.estado}`});
+    if(!(await save(cur=>cur.filter(x=>x.id!==it.id)))) return;
+    audNow({weekId:'',weekLabel:'',div:DIVISIONS.find(d=>d.id===it.div)?.abbr,by:por},{k:'nom',x:`Quitó novedad fija: ${it.who} · ${it.estado}`});
   };
   const hoy=new Date(); hoy.setHours(0,0,0,0);
-  const lista=[...(items||[])].sort((a,b)=>(b.desde||'').localeCompare(a.desde||''));
+  const lista=[...(items||[])].filter(i=>!div||i.div===div.id).sort((a,b)=>(b.desde||'').localeCompare(a.desde||''));
   const inp={background:'#fff',border:'1.5px solid var(--border)',borderRadius:'6px',padding:'7px 9px',fontSize:'13px',color:'var(--text)'};
   return (
     <div>
       <div className="sec-t">Licencias y novedades fijas</div>
       <div style={{fontSize:'12px',color:'var(--muted)',marginBottom:'12px'}}>
-        Cargá una vez una licencia, curso o novedad con fecha de inicio y fin. En cada semana, la planilla de la división ofrece completar automáticamente los días vacíos que caigan en ese período. Nunca pisa lo que ya fue cargado, y la división puede corregirlo.
+        Cargá una vez una licencia, curso o novedad con fecha de inicio y fin. En cada semana, la planilla ofrece completar automáticamente los días vacíos que caigan en ese período. Nunca pisa lo que ya fue cargado, y la división puede corregirlo.
       </div>
       <div className="card" style={{marginBottom:'16px'}}>
         <div className="card-t">➕ Nueva novedad</div>
         <div style={{display:'flex',gap:'8px',flexWrap:'wrap',alignItems:'flex-end'}}>
-          <label style={{fontSize:'11px',color:'var(--muted)'}}>División<br/>
-            <select style={inp} value={divId} onChange={e=>{setDivId(e.target.value);setPid('');}}>{DIVISIONS.map(d=><option key={d.id} value={d.id}>{d.abbr}</option>)}</select></label>
+          {!div&&<label style={{fontSize:'11px',color:'var(--muted)'}}>División<br/>
+            <select style={inp} value={divId} onChange={e=>{setDivId(e.target.value);setPid('');}}>{DIVISIONS.map(d=><option key={d.id} value={d.id}>{d.abbr}</option>)}</select></label>}
           <label style={{fontSize:'11px',color:'var(--muted)'}}>Efectivo<br/>
             <select style={{...inp,minWidth:'210px'}} value={pid} onChange={e=>setPid(e.target.value)}>
               <option value="">— elegir —</option>{roster.map(p=><option key={p.id} value={p.id}>{p.apellido} {p.nombre}</option>)}</select></label>
@@ -2265,7 +2274,7 @@ const LicenciasPanel = ({subs}) => {
           <label style={{fontSize:'11px',color:'var(--muted)'}}>Nota (opcional)<br/><input style={{...inp,width:'170px'}} value={nota} onChange={e=>setNota(e.target.value)} placeholder="Ej: Res. 123"/></label>
           <button className="btn btn-ok" onClick={add} disabled={saving}>{saving?'⏳':'Guardar'}</button>
         </div>
-        {roster.length===0&&<div style={{fontSize:'11px',color:'var(--accent-l)',marginTop:'8px'}}>⚠ Esta división no tiene nómina cargada en la semana activa.</div>}
+        {roster.length===0&&<div style={{fontSize:'11px',color:'var(--accent-l)',marginTop:'8px'}}>⚠ {div?'Primero cargá el personal en "Mi Personal".':'Esta división no tiene nómina cargada en la semana activa.'}</div>}
       </div>
       {items===null&&<div style={{color:'var(--muted)'}}>Cargando…</div>}
       {items&&!lista.length&&<div className="alert-warn">No hay novedades fijas cargadas.</div>}
@@ -3496,6 +3505,7 @@ const DivisionApp = ({div, onLogout}) => {
   const tabs = [
     {id:'personal',l:'👥 Mi Personal'},
     {id:'disp',l:<>📅 Disponibilidades{estado!=='enviado'&&totalVac>0&&<span style={{background:'#d97706',color:'#fff',borderRadius:'10px',padding:'1px 7px',fontSize:'10px',fontWeight:700,marginLeft:'4px'}} title="Celdas sin completar">{totalVac}</span>}</>},
+    {id:'licencias',l:'🗓 Licencias'},
     {id:'historial',l:'Historial'},
     {id:'enviar',l:estado==='enviado'?'✅ Enviado':'📤 Enviar'},
   ];
@@ -3594,6 +3604,7 @@ const DivisionApp = ({div, onLogout}) => {
         )}
 
         {/* HISTORIAL */}
+        {tab==='licencias'&&<LicenciasPanel div={div} personal={personal} subs={{}}/>}
         {tab==='historial'&&<HistorialDiv div={div}/>}
 
         {/* ─ ENVIAR ─ */}

@@ -1,0 +1,17 @@
+{
+  "name": "DISPONIBLES DPEM",
+  "short_name": "Disponibles",
+  "description": "Carga de disponibilidades semanales — DPEM",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#1e3a8a",
+  "theme_color": "#1e3a8a",
+  "lang": "es-AR",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}

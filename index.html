@@ -131,25 +131,41 @@
 
     /* LOGIN */
     .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px;background:#0b1220;background-image:radial-gradient(ellipse at 50% -10%,rgba(37,99,235,.28) 0%,transparent 55%),radial-gradient(ellipse at 15% 90%,rgba(37,99,235,.14) 0%,transparent 50%),radial-gradient(ellipse at 85% 20%,rgba(251,191,36,.06) 0%,transparent 45%)}
-    .login-box{width:100%;max-width:500px}
+    .login-box{width:100%;max-width:580px}
     .login-card{background:rgba(255,255,255,.98);border:1px solid rgba(255,255,255,.6);border-radius:16px;padding:34px 30px 28px;box-shadow:0 24px 60px rgba(0,0,0,.45),0 2px 0 rgba(251,191,36,.5) inset;backdrop-filter:blur(4px)}
     .login-logo{text-align:center;margin-bottom:24px}
     .login-crest{width:118px;height:auto;margin:0 auto 16px;display:block;filter:drop-shadow(0 8px 18px rgba(0,0,0,.28))}
     .login-t{font-family:'Oswald',sans-serif;font-size:29px;font-weight:700;color:var(--primary);letter-spacing:2.5px;margin-bottom:5px;line-height:1}
     .login-s{font-size:10.5px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+    .login-wk{display:inline-block;margin-top:10px;font-size:12px;color:var(--primary);background:rgba(29,78,216,.08);border:1px solid rgba(29,78,216,.2);border-radius:20px;padding:3px 12px}
+    .div-btn{position:relative}
+    .st-dot{position:absolute;top:7px;right:7px;width:10px;height:10px;border-radius:50%;display:inline-block;vertical-align:middle;margin-right:4px}
+    .st-dot.ok{background:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.2)}
+    .st-dot.pend{background:#f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,.22);animation:stp 1.8s ease-in-out infinite}
+    @keyframes stp{50%{box-shadow:0 0 0 5px rgba(245,158,11,.08)}}
+    .st-leg{text-align:center;font-size:10.5px;color:var(--muted);margin-top:4px}
     .login-rule{width:56px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--accent),#fbbf24);margin:14px auto 0}
     .login-foot{text-align:center;font-size:10px;color:var(--dim);letter-spacing:.5px;margin-top:18px}
     .divider{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
     .divider-l{flex:1;height:1px;background:var(--border)}
     .divider-t{font-size:11px;color:var(--dim);letter-spacing:1px;text-transform:uppercase}
-    .div-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
-    .div-btn{background:#fff;border:1.5px solid var(--border);color:var(--text);padding:13px;border-radius:8px;cursor:pointer;text-align:left;transition:all .2s;font-family:'IBM Plex Sans',sans-serif;box-shadow:var(--shadow)}
-    .div-btn:hover,.div-btn.sel{border-color:var(--primary);background:rgba(29,78,216,.06);box-shadow:0 0 0 3px rgba(29,78,216,.1)}
-    .div-abbr{font-family:'Oswald',sans-serif;font-size:17px;font-weight:700;margin-bottom:3px}
-    .div-name{font-size:11px;color:var(--muted);line-height:1.35}
+    .div-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:6px}
+    @media (max-width:560px){.div-grid{grid-template-columns:1fr 1fr}.login-card{padding:28px 18px 22px}}
+    .div-btn{background:#fff;border:1.5px solid var(--border);border-top:4px solid var(--dc,var(--border));color:var(--text);padding:12px 10px 11px;border-radius:8px;cursor:pointer;text-align:center;transition:all .2s;font-family:'IBM Plex Sans',sans-serif;box-shadow:var(--shadow)}
+    .div-btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(15,23,42,.12)}
+    .div-btn.sel{border-color:var(--dc,var(--primary));border-top-color:var(--dc,var(--primary));background:color-mix(in srgb,var(--dc,#1d4ed8) 8%,#fff);box-shadow:0 0 0 3px color-mix(in srgb,var(--dc,#1d4ed8) 18%,transparent)}
+    .div-abbr{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;margin-bottom:4px;letter-spacing:1px}
+    .div-name{font-size:10.5px;color:var(--muted);line-height:1.3}
     .adm-btn{width:100%;background:#fff;border:1.5px solid var(--border);color:var(--muted);padding:11px;border-radius:8px;cursor:pointer;text-align:center;transition:all .2s;font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:1px;margin-bottom:10px;box-shadow:var(--shadow)}
     .adm-btn:hover,.adm-btn.sel{border-color:var(--primary);color:var(--primary);background:rgba(29,78,216,.04)}
-    .pw-box{background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:16px;box-shadow:var(--shadow)}
+    .pw-box{animation:pwIn .25s ease;margin-top:12px;background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:16px;box-shadow:var(--shadow)}
+    @keyframes pwIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+    .adm-main{width:100%;display:flex;align-items:center;justify-content:center;gap:12px;padding:15px 16px;border-radius:12px;border:1.5px solid #1e3a8a;background:linear-gradient(135deg,#1e3a8a 0%,#1d4ed8 100%);color:#fff;cursor:pointer;font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;letter-spacing:2px;box-shadow:0 8px 20px rgba(30,58,138,.35),0 2px 0 rgba(251,191,36,.7) inset;transition:all .2s;margin-bottom:4px}
+    .adm-main:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(30,58,138,.45),0 2px 0 rgba(251,191,36,.9) inset}
+    .adm-main.sel{outline:3px solid rgba(251,191,36,.7);outline-offset:2px}
+    .adm-main small{display:block;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:400;letter-spacing:1.5px;opacity:.8;text-transform:uppercase;margin-top:2px}
+    .car-link{display:block;width:100%;background:none;border:none;color:var(--muted);font-size:12px;letter-spacing:.5px;cursor:pointer;padding:8px;margin-top:8px;font-family:'IBM Plex Sans',sans-serif;transition:color .2s}
+    .car-link:hover,.car-link.sel{color:var(--accent-l);text-decoration:underline}
     .pw-lbl{font-size:12px;color:var(--muted);margin-bottom:7px}
     .pw-err{color:var(--bad-l);font-size:12px;margin-top:7px}
 
@@ -205,7 +221,10 @@
     .tile-l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
     .tile-v{font-family:'Oswald',sans-serif;font-size:20px;color:var(--primary)}
     ::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:#f0f4f8}::-webkit-scrollbar-thumb{background:#c8d0de;border-radius:6px}::-webkit-scrollbar-thumb:hover{background:#a0aec0}
-    @media(max-width:768px){.days-grid,.div-grid{grid-template-columns:1fr}.main{padding:12px}.stat-tiles{grid-template-columns:1fr 1fr}}
+    @media(max-width:768px){.days-grid{grid-template-columns:1fr}.main{padding:12px}.stat-tiles{grid-template-columns:1fr 1fr}}
+    .locked{opacity:.62}
+    .locked input,.locked select,.locked textarea,.locked button,.locked .fill-h{pointer-events:none}
+    .locked .tabs button{pointer-events:auto}
     .tabs{overflow-x:auto}
     .tab{white-space:nowrap;flex-shrink:0}
     .avt td.fc{position:relative}
@@ -581,6 +600,19 @@ const Login = ({onLogin}) => {
   const [sel,setSel] = useState(null);
   const [pw,setPw] = useState('');
   const [err,setErr] = useState('');
+  const [wk,setWk] = useState(null);
+  const [est,setEst] = useState({});
+  useEffect(()=>{
+    let uns=[];
+    const un0=db.collection('semanas').where('activa','==',true).onSnapshot(q=>{
+      uns.forEach(u=>u()); uns=[]; setEst({});
+      if(q.empty){ setWk(null); return; }
+      const d=q.docs[0]; setWk({id:d.id,label:d.data().label});
+      uns=DIVISIONS.map(div=>db.collection('semanas').doc(d.id).collection('divisiones').doc(div.id).onSnapshot(
+        sn=>setEst(p=>({...p,[div.id]:sn.exists?(sn.data().estado||'pendiente'):'pendiente'})),()=>{}));
+    },()=>{});
+    return()=>{ un0(); uns.forEach(u=>u()); };
+  },[]);
   const go = () => {
     setErr('');
     if(sel==='admin'){ if(pw===ADMIN_PW) onLogin({role:'admin',div:null}); else setErr('Contraseña incorrecta'); }
@@ -595,23 +627,28 @@ const Login = ({onLogin}) => {
           <img src={ESCUDO_DPEM} alt="Escudo DPEM" className="login-crest" draggable={false}/>
           <div className="login-t">DISPONIBLES DPEM</div>
           <div className="login-s">Policía de la Ciudad · DSED</div>
+          {wk&&<div className="login-wk">📅 Semana activa: <b>{wk.label}</b></div>}
           <div className="login-rule"/>
         </div>
-        <div className="divider"><div className="divider-l"/><div className="divider-t">Seleccionar División</div><div className="divider-l"/></div>
+        <button className={`adm-main${sel==='admin'?' sel':''}`} onClick={()=>{setSel('admin');setPw('');setErr('');}}>
+          <span style={{fontSize:'22px'}}>🛡</span>
+          <span style={{textAlign:'left'}}>DSED · ADMINISTRADOR<small>Acceso completo</small></span>
+        </button>
+        <div className="divider"><div className="divider-l"/><div className="divider-t">Divisiones</div><div className="divider-l"/></div>
         <div className="div-grid">
           {DIVISIONS.map(d=>(
-            <button key={d.id} className={`div-btn${sel===d.id?' sel':''}`} onClick={()=>{setSel(d.id);setPw('');setErr('');}}>
+            <button key={d.id} className={`div-btn${sel===d.id?' sel':''}`} style={{'--dc':d.color}} onClick={()=>{setSel(d.id);setPw('');setErr('');}}>
+              {est[d.id]&&<span className={`st-dot ${est[d.id]==='enviado'?'ok':'pend'}`} title={est[d.id]==='enviado'?'Planilla enviada':'Planilla pendiente'}/>}
               <div className="div-abbr" style={{color:d.color}}>{d.abbr}</div>
-              <div className="div-name">{d.name}</div>
+              <div className="div-name">{d.name.replace(/^División\s+/,'')}</div>
             </button>
           ))}
         </div>
-        <div className="divider"><div className="divider-l"/><div className="divider-t">o</div><div className="divider-l"/></div>
-        <button className={`adm-btn${sel==='admin'?' sel':''}`} onClick={()=>{setSel('admin');setPw('');setErr('');}}>🛡 ADMINISTRADOR — DSED</button>
-        <button className={`adm-btn${sel==='carpetas'?' sel':''}`} style={{color:'var(--accent-l)',borderColor: sel==='carpetas'?'var(--accent)':'var(--border)'}} onClick={()=>{setSel('carpetas');setPw('');setErr('');}}>📂 PARA CARPETAS</button>
+        {wk&&<div className="st-leg"><span className="st-dot ok" style={{position:'static'}}/> Enviada <span className="st-dot pend" style={{position:'static',marginLeft:'12px'}}/> Pendiente</div>}
+        <button className={`car-link${sel==='carpetas'?' sel':''}`} onClick={()=>{setSel('carpetas');setPw('');setErr('');}}>📂 Acceso Para Carpetas</button>
         {sel&&(
           <div className="pw-box">
-            <div className="pw-lbl">Contraseña — {sel==='admin'?'Administrador DSED': sel==='carpetas'?'Para Carpetas':DIVISIONS.find(x=>x.id===sel)?.abbr}</div>
+            <div className="pw-lbl">Contraseña — {sel==='admin'?'DSED · Administrador': sel==='carpetas'?'Para Carpetas':DIVISIONS.find(x=>x.id===sel)?.abbr}</div>
             <div className="frow">
               <input type="password" value={pw} onChange={e=>setPw(e.target.value)} onKeyDown={e=>e.key==='Enter'&&go()} placeholder="••••••" style={{flex:1}} autoFocus/>
               <button className="btn btn-p" onClick={go}>INGRESAR</button>
@@ -2175,6 +2212,80 @@ const RespaldoPanel = () => {
   );
 };
 
+
+const LicenciasPanel = ({subs}) => {
+  const [items,setItems]=useState(null);
+  const [divId,setDivId]=useState(DIVISIONS[0].id);
+  const [pid,setPid]=useState('');
+  const [desde,setDesde]=useState('');
+  const [hasta,setHasta]=useState('');
+  const [estado,setEstado]=useState('L/A - NO');
+  const [nota,setNota]=useState('');
+  const [saving,setSaving]=useState(false);
+  useEffect(()=>db.collection('config').doc('licencias').onSnapshot(s=>setItems(s.exists?(s.data().items||[]):[]),e=>{setItems([]);toast('bad','No se pudo leer',e.message);}),[]);
+  const roster=sortP(subs[divId]?.personal||[]);
+  const save=async(arr)=>{ setSaving(true); try{ await db.collection('config').doc('licencias').set({items:arr},{merge:true}); }catch(e){ toast('bad','Error al guardar',e.message); } setSaving(false); };
+  const add=async()=>{
+    const p=roster.find(x=>x.id===pid);
+    if(!p){toast('bad','Falta el efectivo','Elegí a quién corresponde.');return;}
+    if(!_pd(desde)||!_pd(hasta)){toast('bad','Faltan fechas','Completá desde y hasta.');return;}
+    if(_pd(desde)>_pd(hasta)){toast('bad','Fechas invertidas','"Desde" no puede ser posterior a "Hasta".');return;}
+    const est=corregirEstado(estado.trim().toUpperCase()).val.toString().toUpperCase();
+    if(!est){toast('bad','Falta el estado','Ej: L/A - NO');return;}
+    const it={id:uid(),div:divId,k:_pkey(p),who:`${p.apellido} ${p.nombre}`,desde,hasta,estado:est,nota:nota.trim()};
+    await save([...(items||[]),it]);
+    audNow({weekId:'',weekLabel:'',div:DIVISIONS.find(d=>d.id===divId)?.abbr,by:'DSED'},{k:'nom',x:`Novedad fija: ${it.who} · ${est} · ${_fmtD(desde)} al ${_fmtD(hasta)}`});
+    toast('ok','Novedad guardada',`${it.who} — ${est}`); setPid(''); setNota('');
+  };
+  const del=async(it)=>{
+    if(!window.confirm(`¿Quitar "${it.estado}" de ${it.who} (${_fmtD(it.desde)} al ${_fmtD(it.hasta)})?`)) return;
+    await save((items||[]).filter(x=>x.id!==it.id));
+    audNow({weekId:'',weekLabel:'',div:DIVISIONS.find(d=>d.id===it.div)?.abbr,by:'DSED'},{k:'nom',x:`Quitó novedad fija: ${it.who} · ${it.estado}`});
+  };
+  const hoy=new Date(); hoy.setHours(0,0,0,0);
+  const lista=[...(items||[])].sort((a,b)=>(b.desde||'').localeCompare(a.desde||''));
+  const inp={background:'#fff',border:'1.5px solid var(--border)',borderRadius:'6px',padding:'7px 9px',fontSize:'13px',color:'var(--text)'};
+  return (
+    <div>
+      <div className="sec-t">Licencias y novedades fijas</div>
+      <div style={{fontSize:'12px',color:'var(--muted)',marginBottom:'12px'}}>
+        Cargá una vez una licencia, curso o novedad con fecha de inicio y fin. En cada semana, la planilla de la división ofrece completar automáticamente los días vacíos que caigan en ese período. Nunca pisa lo que ya fue cargado, y la división puede corregirlo.
+      </div>
+      <div className="card" style={{marginBottom:'16px'}}>
+        <div className="card-t">➕ Nueva novedad</div>
+        <div style={{display:'flex',gap:'8px',flexWrap:'wrap',alignItems:'flex-end'}}>
+          <label style={{fontSize:'11px',color:'var(--muted)'}}>División<br/>
+            <select style={inp} value={divId} onChange={e=>{setDivId(e.target.value);setPid('');}}>{DIVISIONS.map(d=><option key={d.id} value={d.id}>{d.abbr}</option>)}</select></label>
+          <label style={{fontSize:'11px',color:'var(--muted)'}}>Efectivo<br/>
+            <select style={{...inp,minWidth:'210px'}} value={pid} onChange={e=>setPid(e.target.value)}>
+              <option value="">— elegir —</option>{roster.map(p=><option key={p.id} value={p.id}>{p.apellido} {p.nombre}</option>)}</select></label>
+          <label style={{fontSize:'11px',color:'var(--muted)'}}>Desde<br/><input type="date" style={inp} value={desde} onChange={e=>{setDesde(e.target.value); if(!hasta) setHasta(e.target.value);}}/></label>
+          <label style={{fontSize:'11px',color:'var(--muted)'}}>Hasta<br/><input type="date" style={inp} value={hasta} onChange={e=>setHasta(e.target.value)}/></label>
+          <label style={{fontSize:'11px',color:'var(--muted)'}}>Estado<br/><input list="avopt" style={{...inp,width:'170px',textTransform:'uppercase'}} value={estado} onChange={e=>setEstado(e.target.value)}/></label>
+          <label style={{fontSize:'11px',color:'var(--muted)'}}>Nota (opcional)<br/><input style={{...inp,width:'170px'}} value={nota} onChange={e=>setNota(e.target.value)} placeholder="Ej: Res. 123"/></label>
+          <button className="btn btn-ok" onClick={add} disabled={saving}>{saving?'⏳':'Guardar'}</button>
+        </div>
+        {roster.length===0&&<div style={{fontSize:'11px',color:'var(--accent-l)',marginTop:'8px'}}>⚠ Esta división no tiene nómina cargada en la semana activa.</div>}
+      </div>
+      {items===null&&<div style={{color:'var(--muted)'}}>Cargando…</div>}
+      {items&&!lista.length&&<div className="alert-warn">No hay novedades fijas cargadas.</div>}
+      {lista.map(it=>{
+        const vencida=_pd(it.hasta)&&_pd(it.hasta)<hoy; const d=DIVISIONS.find(x=>x.id===it.div);
+        return (
+          <div key={it.id} className="card" style={{padding:'8px 14px',marginBottom:'6px',display:'flex',alignItems:'center',gap:'10px',flexWrap:'wrap',opacity:vencida?.55:1}}>
+            <span style={{fontFamily:'Oswald,sans-serif',fontWeight:700,color:d?.color,width:'46px'}}>{d?.abbr}</span>
+            <div style={{flex:1,minWidth:'200px'}}>
+              <div style={{fontSize:'13px',fontWeight:600}}>{it.who} <span style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'11px',background:'#fecaca',borderRadius:'4px',padding:'1px 6px',marginLeft:'4px'}}>{it.estado}</span></div>
+              <div style={{fontSize:'11px',color:'var(--muted)'}}>{_fmtD(it.desde)} → {_fmtD(it.hasta)}{it.nota?` · ${it.nota}`:''}{vencida?' · vencida':''}</div>
+            </div>
+            <button className="btn btn-g btn-sm" onClick={()=>del(it)} style={{color:'var(--bad)'}}>🗑 Quitar</button>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 const AdminApp = ({onLogout}) => {
   const [tab,setTab] = useState('estado');
   const [week,setWeek] = useState(null);
@@ -2249,6 +2360,7 @@ const AdminApp = ({onLogout}) => {
     {id:'unificado',l:'📋 Vista Unificada'},
     {id:'exportar', l:'⬇ Exportar'},
     {id:'carpetas', l:'📂 Para Carpetas'},
+    {id:'licencias',l:'🗓 Licencias'},
     {id:'equidad',  l:'📈 Equidad'},
     {id:'registro', l:'🧾 Registro'},
     {id:'respaldo', l:'🛟 Respaldo'},
@@ -2283,6 +2395,7 @@ const AdminApp = ({onLogout}) => {
         {tab==='unificado' && <UnifiedView week={week} subs={subs}/>}
         {tab==='exportar'  && <ExportPanel week={week} subs={subs}/>}
         {tab==='carpetas'  && <AdminCarpetas/>}
+        {tab==='licencias' && <LicenciasPanel subs={subs}/>}
         {tab==='equidad'   && <EquidadPanel/>}
         {tab==='registro'  && <RegistroPanel/>}
         {tab==='respaldo'  && <RespaldoPanel/>}
@@ -2716,6 +2829,30 @@ const InstallBtn=()=>{
   return <button className="btn-out" onClick={click} title="Instalar la app en este dispositivo">📲 Instalar</button>;
 };
 
+
+// ══════════════════════════════════════════════════════════
+//  LICENCIAS Y NOVEDADES FIJAS
+// ══════════════════════════════════════════════════════════
+const _pd=s=>{const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||'');return m?new Date(+m[1],+m[2]-1,+m[3]):null;};
+const _pkey=p=>`${String(p.apellido||'').trim().toUpperCase()}|${String(p.nombre||'').trim().toUpperCase()}`;
+const _fmtD=s=>{const d=_pd(s);return d?d.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'2-digit'}):'';};
+// Celdas VACÍAS que corresponde completar según las licencias/novedades vigentes (nunca pisa lo ya cargado)
+const licPendientes=(items,personal,week,divId)=>{
+  const out=[]; const dias=week?.dias||[];
+  const its=(items||[]).filter(i=>(!divId||i.div===divId)&&_pd(i.desde)&&_pd(i.hasta)); if(!its.length) return out;
+  const infos=dias.map(d=>diaInfo(week,d.label));
+  (personal||[]).forEach(p=>{
+    const k=_pkey(p);
+    dias.forEach((d,di)=>{
+      if(!d.label||!infos[di].date) return;
+      if(String((p.disponibilidad||{})[String(di)]||'').trim()) return;
+      const dt=infos[di].date;
+      const it=its.find(i=>i.k===k&&dt>=_pd(i.desde)&&dt<=_pd(i.hasta));
+      if(it) out.push({pid:p.id,di,val:it.estado});
+    });
+  });
+  return out;
+};
 // Clasificación de una celda de disponibilidad
 const clasifAv=v=>{const u=(v||'').trim().toUpperCase(); if(!u) return 'vacio'; if(u==='DISPONIBLE') return 'disp'; if(u==='VOLUNTARIO') return 'vol'; if(/(-\s*NO\b)|(^NO$)|(\bNO\s*-)|(NO QUEDA OTRA)/.test(u)) return 'no'; return 'otro';};
 const AV_BG={disp:'#d1fae5',vol:'#ccfbf1',no:'#fecaca',otro:'#dbeafe'};
@@ -2735,6 +2872,8 @@ const AvailGrid = ({week, personal, onChange, readOnly, div, resaltarVacios}) =>
   const undoSt=useRef([]); const redoSt=useRef([]); const lastEdit=useRef({key:null,t:0});
   const [viewMode,setViewMode]=useState(()=>{try{return window.matchMedia('(max-width:768px)').matches?'day':'grid';}catch{return 'grid';}});
   const [mobDay,setMobDay]=useState(0);
+  const [lics,setLics]=useState([]);
+  useEffect(()=>{ if(readOnly) return; const u=db.collection('config').doc('licencias').onSnapshot(s=>setLics(s.exists?(s.data().items||[]):[]),()=>{}); return u; },[readOnly]);
   const [fill,setFill]=useState(null); const fillRef=useRef(null); const applyFillRef=useRef(null);
   useEffect(()=>{
     const up=()=>{ const f=fillRef.current; if(!f) return; fillRef.current=null; setFill(null); if(applyFillRef.current) applyFillRef.current(f); };
@@ -2778,6 +2917,13 @@ const AvailGrid = ({week, personal, onChange, readOnly, div, resaltarVacios}) =>
     const d={...(p.disponibilidad||{})}; dias.forEach((_,i)=>{ if(!d[String(i)]) d[String(i)]=val; }); return {...p,disponibilidad:d};
   }));
 
+  // ── licencias / novedades fijas ──
+  const licPend=readOnly?[]:licPendientes(lics,personal,week,div?.id);
+  const aplicarLic=()=>{
+    const m={}; licPend.forEach(x=>{(m[x.pid]=m[x.pid]||{})[String(x.di)]=x.val;});
+    commit(personal.map(p=>m[p.id]?{...p,disponibilidad:{...(p.disponibilidad||{}),...m[p.id]}}:p));
+    toast('ok',`${licPend.length} celda${licPend.length>1?'s completadas':' completada'}`,'Con licencias / novedades fijas. Ctrl+Z deshace.');
+  };
   // ── arrastrar para rellenar ──
   const fillRange=f=>({p0:Math.min(f.pi,f.ei),p1:Math.max(f.pi,f.ei),d0:Math.min(f.di,f.ej),d1:Math.max(f.di,f.ej)});
   const inFill=(pi,di)=>{ if(!fill) return false; const r=fillRange(fill); return pi>=r.p0&&pi<=r.p1&&di>=r.d0&&di<=r.d1; };
@@ -2875,6 +3021,13 @@ const AvailGrid = ({week, personal, onChange, readOnly, div, resaltarVacios}) =>
         </button>
       </div>
 
+      {licPend.length>0&&(
+        <div style={{display:'flex',alignItems:'center',gap:'10px',flexWrap:'wrap',background:'#eff6ff',border:'1px solid #bfdbfe',borderLeft:'4px solid var(--primary)',borderRadius:'8px',padding:'9px 14px',marginBottom:'10px',fontSize:'12.5px',color:'#1e3a8a'}}>
+          <span style={{fontSize:'18px'}}>🗓</span>
+          <div style={{flex:1,minWidth:'200px'}}><b>{licPend.length} celda{licPend.length>1?'s vacías tienen':' vacía tiene'} licencias o novedades fijas</b> cargadas por el DSED para estos días.</div>
+          <button className="btn btn-p btn-sm" onClick={aplicarLic}>Completar automáticamente</button>
+        </div>
+      )}
       {Counters}
 
       {/* leyenda */}
@@ -3123,6 +3276,41 @@ const DivisionApp = ({div, onLogout}) => {
   const lastSaveId = useRef(null);
   const personalRef = useRef([]);   // último roster conocido (para detectar cambios de nómina)
 
+  // ── CANDADO DE EDICIÓN: una sola sesión edita la división a la vez ──
+  const sid = useRef((()=>{ try{ let v=sessionStorage.getItem('dpem_sid'); if(!v){v=uid();sessionStorage.setItem('dpem_sid',v);} return v; }catch{ return uid(); } })());
+  const [blocked,setBlocked] = useState(null);
+  const blockedRef = useRef(null);
+  const setBlk = v => { blockedRef.current=v; setBlocked(v); };
+  const devName = () => { const u=navigator.userAgent; return /iphone|ipad/i.test(u)?'un iPhone/iPad':/android/i.test(u)?'un celular Android':/windows/i.test(u)?'una PC (Windows)':/mac/i.test(u)?'una Mac':'otro dispositivo'; };
+  const lockRef = () => db.collection('locks').doc(`${week.id}_${div.id}`);
+  useEffect(()=>{
+    if(!week) return;
+    const ref=lockRef(); const STALE=90000; let dead=false;
+    const fresh=d=>d&&d.sid&&d.sid!==sid.current&&Date.now()-(d.ts||0)<STALE;
+    const claim=()=>ref.set({sid:sid.current,ts:Date.now(),dev:devName()}).catch(()=>{});
+    ref.get().then(s=>{ if(dead) return; const d=s.exists?s.data():null; if(fresh(d)) setBlk({dev:d.dev,ts:d.ts}); else claim(); }).catch(()=>{});
+    const un=ref.onSnapshot(s=>{
+      const d=s.exists?s.data():null;
+      if(fresh(d)) setBlk({dev:d.dev,ts:d.ts});
+      else if(!d&&blockedRef.current){ setBlk(null); claim(); }   // el otro dispositivo salió
+    },()=>{});
+    const iv=setInterval(async()=>{
+      try{
+        const s=await ref.get(); const d=s.exists?s.data():null;
+        if(fresh(d)) setBlk({dev:d.dev,ts:d.ts});
+        else { if(blockedRef.current) setBlk(null); claim(); }
+      }catch{}
+    },20000);
+    const rel=()=>{ if(!blockedRef.current) ref.get().then(s=>{ if(s.exists&&s.data().sid===sid.current) ref.delete(); }).catch(()=>{}); };
+    window.addEventListener('pagehide',rel);
+    return()=>{ dead=true; un(); clearInterval(iv); window.removeEventListener('pagehide',rel); rel(); };
+  },[week?.id,div.id]);
+  const takeControl = async () => {
+    if(!window.confirm('¿Tomar el control de la edición?\n\nEl otro dispositivo pasará a solo lectura.')) return;
+    try{ await lockRef().set({sid:sid.current,ts:Date.now(),dev:devName()}); setBlk(null); toast('ok','Tenés el control','Ya podés editar.'); }
+    catch(e){ toast('bad','No se pudo tomar el control',e.message); }
+  };
+
   // ── AUTOSAVE / espejo en localStorage (a prueba de caídas de Firebase) ──
   const draftKey = week ? `dpem_draft_${week.id}_${div.id}` : null;
   const writeDraft = useCallback((partial, synced) => {
@@ -3202,7 +3390,7 @@ const DivisionApp = ({div, onLogout}) => {
   },[week?.id,persist]);
 
   const persist = useCallback(async (update) => {
-    if(!week) return;
+    if(!week||blockedRef.current) return;
     // 1) Espejo local inmediato (sobrevive aunque falle Firebase o se cierre la pestaña)
     writeDraft(update, false);
     setSaving(true);
@@ -3339,7 +3527,16 @@ const DivisionApp = ({div, onLogout}) => {
         <span className={`sb ${estado==='enviado'?'sb-ok':'sb-p'}`}>{estado==='enviado'?'✓ Enviado':'● Pendiente'}</span>
         <InstallBtn/><button className="btn-out" onClick={onLogout}>Salir</button>
       </div>
-      <div className="main">
+      {blocked&&(
+        <div style={{position:'sticky',top:0,zIndex:50,display:'flex',alignItems:'center',gap:'12px',flexWrap:'wrap',background:'#fef2f2',border:'1px solid #fca5a5',borderLeft:'4px solid #dc2626',padding:'10px 16px'}}>
+          <span style={{fontSize:'20px'}}>🔒</span>
+          <div style={{flex:1,minWidth:'220px',fontSize:'13px',color:'#991b1b'}}>
+            <b>{div.abbr} se está editando desde {blocked.dev}</b> (activo hace {Math.max(1,Math.round((Date.now()-(blocked.ts||Date.now()))/1000))} s). Para que no se pisen los cambios, acá está en solo lectura.
+          </div>
+          <button className="btn btn-p btn-sm" onClick={takeControl}>Tomar el control</button>
+        </div>
+      )}
+      <div className={`main${blocked?' locked':''}`} onKeyDownCapture={e=>{ if(blockedRef.current&&e.key!=='Tab') e.preventDefault(); }}>
         {recover&&(
           <div style={{display:'flex',alignItems:'center',gap:'12px',flexWrap:'wrap',background:'#fff7ed',border:'1px solid #fcd34d',borderLeft:'4px solid var(--accent)',borderRadius:'8px',padding:'12px 16px',marginBottom:'16px'}}>
             <span style={{fontSize:'20px'}}>💾</span>

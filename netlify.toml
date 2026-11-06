@@ -1,0 +1,4 @@
+[build.environment]
+# La apiKey de Firebase Web es pública por diseño (la seguridad la dan las reglas de Firestore).
+# Netlify la detecta por error como "secreto"; se excluye index.html del escaneo.
+SECRETS_SCAN_OMIT_PATHS = "index.html"
